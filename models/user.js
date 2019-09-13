@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Hasło nie zostało podane"],
     minlength: [6, "Hasło musi zawierać więcej niż 6 znaków"]
   },
+  registerDate: {
+    type: Date,
+    default: Date.now
+  },
   accessTokens: [
     {
       token: {
