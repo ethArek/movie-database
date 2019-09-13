@@ -5,4 +5,6 @@ const omdbApi = {
   key: "a6984b0"
 };
 
-module.exports = { mongoUrl, omdbApi };
+const jwtSecret = "b798f7219afd4533bbab6d0632c4c5b8";
+
+module.exports = { mongoUrl, omdbApi, jwtSecret };
