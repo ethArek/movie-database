@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 router.get("/", async (req, res) => {
-  res.send("asfasdf");
+  res.send("");
 });
 
 module.exports = router;
