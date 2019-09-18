@@ -16,7 +16,7 @@ const CommentSchema = new mongoose.Schema({
   text: {
     type: String,
     required: true,
-    minlength: [10, "Comment has to be at least 10 characters long"]
+    minlength: [10, "Komentarz musi mieć co najmniej 10 znaków"]
   },
   date: {
     type: Date,

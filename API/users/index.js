@@ -1,6 +1,7 @@
 const router = require("express").Router();
+const _ = require("lodash");
 
-const { User } = require("../../models/user.js");
+const User = require("../../models/user.js");
 
 router.post("/register", async (req, res) => {
   try {
@@ -20,9 +21,7 @@ router.post("/register", async (req, res) => {
       res.json({ success: true, message: "Dodano uzytkownika" });
     }
   } catch (err) {
-    res
-      .status(500)
-      .json({ success: false, message: "Błąd połączenia z serwerem" });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -50,7 +49,7 @@ router.post("/login", async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(401).json({ success: false, error: err });
+    res.status(401).json({ success: false, error: err.message });
   }
 });
 

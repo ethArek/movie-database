@@ -6,7 +6,7 @@ const { omdbApi } = require("../../config/config.js");
 const Movie = require("../../models/movies.js");
 const auth = require("../../middlewares/authentication.js");
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   if (req.body.title || req.body.imdbId) {
     try {
       const requestOptions = {
@@ -61,6 +61,15 @@ router.post("/", async (req, res) => {
     res
       .status(422)
       .json({ success: false, message: "Musisz podać tytuł lub id" });
+  }
+});
+
+router.get("/", auth, async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.json({ success: true, data: movies });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
