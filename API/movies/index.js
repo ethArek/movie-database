@@ -5,7 +5,6 @@ const moment = require("moment");
 const { omdbApi } = require("../../config/config.js");
 const Movie = require("../../models/movies.js");
 const auth = require("../../middlewares/authentication.js");
-// require("../../db/connection.js");
 
 router.post("/", async (req, res) => {
   if (req.body.title || req.body.imdbId) {
@@ -21,10 +20,11 @@ router.post("/", async (req, res) => {
         },
         json: true
       };
-      console.log("here");
+
       const response = await request(requestOptions);
       if (response.Response === "True") {
         const body = {
+          imdbId: response.imdbID,
           title: response.Title,
           year: response.Year,
           rating: response.Rated,
@@ -54,7 +54,8 @@ router.post("/", async (req, res) => {
         });
       }
     } catch (err) {
-      res.status(500).json({ success: false, message: "Problemy z serwerem" });
+      //most likely mongo errors
+      res.status(500).json({ success: false, message: err.message });
     }
   } else {
     res

@@ -35,13 +35,19 @@ router.post("/login", async (req, res) => {
         .json({ success: false, message: "Pola e-mail i hasło są wymagane" });
     } else {
       const user = await User.findByCredentials(body.email, body.password);
-      const token = await user.generateAuthToken();
-      const result = {
-        userId: user._id,
-        token: token,
-        email: user.email
-      };
-      res.json({ success: true, result });
+      if (!user) {
+        res
+          .status(403)
+          .json({ success: false, message: "E-mail lub hasło są niepoprawne" });
+      } else {
+        const token = await user.generateAuthToken();
+        const result = {
+          userId: user._id,
+          token: token,
+          email: user.email
+        };
+        res.json({ success: true, result });
+      }
     }
   } catch (err) {
     res.status(401).json({ success: false, error: err });
