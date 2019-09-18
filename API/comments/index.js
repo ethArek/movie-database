@@ -1,11 +1,12 @@
 const router = require("express").Router();
 
-const Comment = require("../../models/comment.js");
+const Comment = require("../../models/comments.js");
+const auth = require("../../middlewares/authentication.js");
 
 router.post("/", auth, async (req, res) => {
   try {
     const body = {
-      user: req.user._id,
+      user: req.body.user_id,
       movie: req.body.movie_id,
       text: req.body.text
     };
@@ -20,7 +21,11 @@ router.post("/", auth, async (req, res) => {
 
 router.get("/", auth, async (req, res) => {
   try {
-    const comments = await Comment.find();
+    const comments = await Comment.find()
+      .populate("user")
+      .populate("movie")
+      .exec();
+
     res.json({ success: true, data: comments });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });

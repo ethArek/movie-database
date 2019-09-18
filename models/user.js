@@ -4,7 +4,7 @@ const _ = require("lodash");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { jwtSecret } = "../config/config.js";
+const { jwtSecret } = require("../config/config.js");
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -114,6 +114,6 @@ UserSchema.statics.findByToken = function(token) {
   });
 };
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("users", UserSchema);
 
 module.exports = User;

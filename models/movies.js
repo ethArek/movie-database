@@ -54,6 +54,6 @@ MovieSchema.post("save", function(error, doc, next) {
   }
 });
 
-const Movie = mongoose.model("movie", MovieSchema);
+const Movie = mongoose.model("movies", MovieSchema);
 
 module.exports = Movie;
