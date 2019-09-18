@@ -21,7 +21,11 @@ router.post("/", auth, async (req, res) => {
 
     const comment = new Comment(body);
     await comment.save();
-    res.json({ success: true, message: "Komentarz został dodany" });
+    res.json({
+      success: true,
+      message: "Komentarz został dodany",
+      comment_id: comment._id
+    });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
